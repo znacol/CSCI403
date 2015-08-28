@@ -1,0 +1,8 @@
+line |                       stanza                        
+------+-----------------------------------------------------
+    0 | Fish burn happiness.
+    1 | Stupidity moves arrows.
+    2 | Petals diminish.
+      | --from http://peterhoward.org/haikugen/framset1.htm
+(4 rows)
+
