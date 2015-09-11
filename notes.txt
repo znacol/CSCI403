@@ -52,3 +52,144 @@ Relational Databases
 	Note: "relation is a set" -> no ordering of tuple in relation
 		also -> no duplicates (* in practice)
 	Note: "attributes are set" ->ordering of sttributes in a relation doesn't matter
+
+
+
+----------------------------------------------------------------------------------------------			9/4/15
+Chapter 5: Basic SQL
+
+Constraints
+	- A restriction on a relation or set of relations
+	- Three Categories
+		- Implicit: not enforced, but assumed. (i.e. assume instructor name is the name of a person and not a book title)
+		- Explicit: enforced by database schema 
+		- Application: enforced by application code (business rules)
+
+	- Domain Constraints: type constraints, not NULL constraint
+
+	- Key Constraints: primary key (not Null), referential integrity ("foreign key")
+
+		-Super Key: subset of attributes of relational schema R such that no two tuples in any relation r(R) share exact same values for the attributes
+		-Key: "a minimal super key"; a super key such that the removal of any attribute of the key makes it no longer a super key
+		-Candidate Keys: pick one -> "primary key"
+	- Referential Integrity: kind of like creating enumerated types (only a finite amount of allowed values)
+
+| course_id | section | title           | instructor | crn |
+| CSCI262   |	A     | Data Structures | CPW	     | 1   |
+| CSCI262   |	B     | Data Structures | CPW	     | 2   |
+| CSCI403   |	A     | Databases       | CPW	     | 3   |
+| CSCI406   |	A     | Algorithms      | Mehta      | 4   |
+
+(course_id, section, title) is a superkey
+(course_id, section) is just a key
+(crn) is just a key
+
+SELECT attributes FROM table_name;
+	e.g. SELECT * FROM mines_courses;
+	     SELECT course_id, section FROM mines_courses;
+	- Projection attributes are the ones Selected
+
+SELECT attributes FROM tablename WHERE condition;
+	- Adding the WHERE clause adds a boolean expression
+	e.g. csci403=> select course_id FROM mines_courses WHERE instructor='Painter-Wakefield, Christopher';
+		 course_id 
+		-----------
+		 CSCI262
+		 CSCI262
+		 CSCI403
+		(3 rows)
+	<> means not equal in SQL. Can AND and/or OR for compound expressions as well.
+	
+	e.g. csci403=> select course_id FROM mines_courses WHERE instructor LIKE 'Painter%';
+		 course_id 
+		-----------
+		 CSCI262
+		 CSCI262
+		 CSCI403
+		(3 rows)
+
+	LIKE keyword for regex matching string values. % is "starting with." _ is a one character wildcard
+
+Functions
+	aliasing -> "AS" keyword
+
+
+	SELECT attributes, attributes2, ..., attributesN
+	FROM table_name1, table_name2, ..., table_nameM
+	WHERE condition;
+
+	SELECT DISTINCT instructor FROM mines_courses;
+	DISTINCT will only return distinct attribute values (no repeats)
+
+	SELECT ... FROM ... WHERE ... ORDER BY attribute, attribute2, etc.
+	ORDER BY defaults ascending sort BY the attributes specified in the order specified
+
+	ORDER BY instructor DESC = descending instructor (alphabetic) order
+
+conditions
+================================================
+	instructor LIKE 'Painter%'
+		% : starts-with
+	NULL values cannot be compared
+
+	SELECT mines_courses.crn, mines_courses.course_id, mines_courses.section
+	FROM mines_courses
+	WHERE instructor LIKE 'Painter%';
+
+is the same as
+
+	SELECT mc.crn, mc.course_id, mc.section
+	FROM mines_courses AS mc
+	WHERE instructor LIKE 'Painter%';
+
+querying multiple tables
+	SELECT * FROM mines_courses, mines_eecs_faculty;
+		result: cartesian product/cross product of tables is then queried
+		cross product is not actually "forced" => more optimal
+
+	SELECT crn, instructor, course_id, email
+	FROM mines_courses AS mc, mines_eecs_faculty AS mef
+	WHERE mc.instructor=mef.name AND mc.instructor LIKE 'Painter%';
+													9/9/15
+DDL: Creating Your Own Schema
+	-**schema
+		- container for database object
+		- like namespaces
+		- apply security policies independently
+		- different applications
+		- 'public'
+	-**catalog
+		- system tables
+
+\d		# lets you view all tables in schema
+\dS		# lets you view system tables
+
+Table Creation:
+	- CREATE TABLE schemaname.table_name
+	CREATE TABLE name (column1_name column1_type [column_constraints], 
+  		      column2_name column2_type [column_constraints],
+		      ...
+		      [table_constraints]
+		      );
+	- integer types
+		INTEGER
+	- decimal types (fixed precision)
+		NUMERIC(width,precision)
+		DECIMAL(w,p)
+	- real
+		REAL
+		DOUBLE
+	- boolean
+		BOOLEAN
+	- date/time
+		DATE
+		TIME
+		TIMESTAMP 	# date and time
+	- strings
+		CHAR(n)		# takes in length of char
+		VARCHAR(n)
+		TEXT		# postgres feature
+	- binary
+		BYTEA		# e.g. for storing image, IP address		
+
+

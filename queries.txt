@@ -1,0 +1,19 @@
+# CSCI 403 Fall 2015
+
+** [] denotes optional
+
+
+SELECT attributes
+FROM table_name1, table_name2
+WHERE conditions
+ORDER BY conditions
+
+
+CREATE TABLE schemaName.tableName
+	e.g. CREATE TABLE public.foo (apple char(8) NOT NULL,
+					pear integer,
+					fruit_id serial PRIMARY KEY,
+					quince integer DEFAULT 42,
+					orange date UNIQUE,
+					pineapple char(8) REFERENCES bar(pineapple),
+					);
