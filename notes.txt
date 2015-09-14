@@ -155,7 +155,7 @@ DDL: Creating Your Own Schema
 	-**schema
 		- container for database object
 		- like namespaces
-		- apply security policies independently
+		 apply security policies independently
 		- different applications
 		- 'public'
 	-**catalog
@@ -192,4 +192,46 @@ Table Creation:
 	- binary
 		BYTEA		# e.g. for storing image, IP address		
 
+	
+	Workflow	
+									9/11/15
+	- Tables created infrequently
+	- Easy to make mistakes
+		1. Make scripts
+			- table creation, populate with data, drop old tables
+		2. Rerun until good results
+	
+	- CREATE TABLE AS: use prexisting or read only table (e.g. Project 2)
+	CREATE TABLE schema.table_name (a1, a2,...,an) AS SELECT ...
+		- Does not copy constraints over
 
+Database Modification Commands
+	INSERT, UPDATE, DELETE
+	- Modification queries
+	- Can fail (due to violation of constraint)
+
+	**INSERT INTO table_name VALUES (v1, v2, ..., vn);
+	INSERT INTO table_name (a1, a2,...am) VALUES (va1, va2,..,vam);
+	INSERT INTO table_name (a1,a2,...,an) SELECT ...; (can use query\data from other table)
+
+	**Example
+	CREATE TABLE foo (id serial, bar test, baz date;
+	INSERT INTO foo (bar, baz) VALUES ('apple','2010-01-30');
+	INSERT INTO foo (baz) VALUES ('2003-03-11');
+
+	**UPDATE table_name SET a1=value_a1 WHERE condition;
+
+	Example:
+	UPDATE foo SET baz='2015-09-11' WHERE baz IS NULL;
+
+	DELETE FROM table_name WHERE condition;
+
+Bulk Loading of Data
+	- Options:
+		1. Convert data into script:
+			INSERT INTO table VALUES (...)
+			INSERT ...
+		2. Write a program to insert via API
+		3. Bulk loader
+			copy (postgres)
+			e.g. copy table_name FROM 'filename' [WITH (option1, option2,...);

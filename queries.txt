@@ -17,3 +17,12 @@ CREATE TABLE schemaName.tableName
 					orange date UNIQUE,
 					pineapple char(8) REFERENCES bar(pineapple),
 					);
+
+CREATE TABLE AS schema.table_name (a1,...,an) AS SELECT ...
+
+Modification Queries
+	INSERT INTO table_name VALUES (v1, v2,..., vn);
+
+	UPDATE table_name set a1=value_a1 WHERE condition;
+	
+	DELETE FROM table_bame WHERE condition;
