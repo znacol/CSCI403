@@ -235,3 +235,59 @@ Bulk Loading of Data
 		3. Bulk loader
 			copy (postgres)
 			e.g. copy table_name FROM 'filename' [WITH (option1, option2,...);
+Subqueries (Nested Queries)
+	- Execute a SELECT query, and use result in WHERE, FROM, SELECT of some outer query
+	- Subquery result can be 0 or more rows
+		- 1 row: interpet result as a value (tuple)
+		- multiple rows- interpret as relation
+
+
+	IN, NOT IN
+		- when result is relation
+		- IN tests for membership in result
+	**Example
+	SELECT course_id FROM mines_courses WHERE instructor IN (SELECT name FROM mines_eecs_faculty);
+
+	SELECT * FROM mines_courses WHERE  (instr_first,instr_last) IN (SELECT first, last FROM mines_eecs_faculty);
+
+	**Note: Equivalent to join query
+
+	SELECT course_id FROM mines_courses AS mc, mines_eecs_faculty AS mef WHERE mc.instructor = mef.name;		# same as above query
+
+	- "-, +, etc.": when result of subquery is a single row
+	SELECT * FROM mines_eecs_faculty WHERE name = (SELECT instructor FROM mines_courses WHERE course_id='CSCI403');
+
+	Correlated Subqueries
+		- Using value from outer query in WHERE condition of subquery
+	**Example
+	SELECT instructor, course_id FROM mines_courses AS mc1 WHERE course_id IN (SELECT course_id FROM mines_courses AS mc2 WHERE mc2.course_id = mc1.course_id AND mc2.instructor <> mc1.instructor) ORDER BY course_id;
+
+	- EXISTS, NOT EXISTS
+	SELECT DISTINCT instructor, course_id FROM mines_coourses AS mc1 WHERE EXISTS (SELECT course_id FROM mines_courses AS mc2 WHERE mc2.course_id=mc1.course_id AND mc2.instructor <> mc1.instructor);
+
+	- UNIQUE
+
+	- Subqueries in FROM
+		SELECT course_id FROM (SELECT * FROM mines_courses) AS mc WHERE mc.instructor='CPW';
+
+	- Subqueries in SELECT
+		SELECT (SELECT office FROM mines_eecs_faculty WHERE mef.name=mc.instructor) AS office, course_id, instructor FROM mines_courses as mc;
+
+									9/15/15
+Aggregate Functions and GROUP BY
+	- Aggregate Functions: (all ignore nulls)
+		- COUNT (e.g. COUNT (some column)
+		- SUM
+		- MAX
+		- MIN
+		- AVG (e.g. SELECT AVG(max_credits) FROM mines_courses;
+
+	- Grouping: compute aggregates on subgroups of rows as organized by distinct values of some subset of attributes
+		**Example: SELECT {grouping_values | aggregates}[...] FROM table_name WHERE conditional GROUP BY attribute;
+		**Example: SELECT instructor, COUNT(*) FROM mines_courses WHERE course_id lie 'CSCI%' GROUP BY instructor ORDER BY count(*);
+		- Can order by aggregates
+		- SELECT begin_time, COUNT(*) FROM mines_courses_meetings WHERE days LIKE 'MWF' GROUP BY begin_time ORDER BY begin_time;
+	
+
+	- HAVING: like WHERE condition on the tuples resulting from the GROUP BY
+		**Example: SELECT  instructor FROM mines_courses GROUP_BY instructor HAVING  count(*) > 5;

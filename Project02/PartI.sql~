@@ -8,6 +8,7 @@ UPDATE znacol.hogwarts_students SET house='Gryffindor' WHERE house='Griffindor';
 UPDATE znacol.hogwarts_students SET start=NULL WHERE start='?';
 UPDATE znacol.hogwarts_students SET finish=NULL WHERE finish='?';
 ALTER TABLE znacol.hogwarts_students ADD FOREIGN KEY (house) REFERENCES hogwarts_houses (house);
+
 ALTER TABLE znacol.hogwarts_students ALTER COLUMN start TYPE numeric(4,0) USING start::numeric;
 ALTER TABLE znacol.hogwarts_students ALTER COLUMN finish TYPE numeric(4,0) USING finish::numeric;
 SELECT last, first FROM znacol.hogwarts_students WHERE start=1991 and house='Gryffindor' ORDER BY last, first;
