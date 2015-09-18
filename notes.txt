@@ -291,3 +291,43 @@ Aggregate Functions and GROUP BY
 
 	- HAVING: like WHERE condition on the tuples resulting from the GROUP BY
 		**Example: SELECT  instructor FROM mines_courses GROUP_BY instructor HAVING  count(*) > 5;
+
+									9/18/15
+Join Clauses
+	- Alternative to WHERE clause joins
+	**Example
+	SELECT course_id, instructor, office FROM mines_courses INNER JOIN mines_eecs_faculty ON instructor=name; (INNER is optional)
+	Equivalent to: SELECT ... FROM mines_courses, mines_eecs_faculty WHERE instructor = name; (inner join)
+
+	- OUTER JOINS: lets us select all rows from one or both tables, matching up rows on the join condition wherever possible
+	SELECT course_id, instructor, office FROM mines_courses LEFT OUTER JOIN mines_eecs_faculty ON instructor = name; (inlcudes all courses but only offices for eecs courses)
+
+	-** Natural Join aka 'Equijoin': join where condition is implicit due ot attribute names matching in both tables (no ON clause)
+	**Example
+	SELECT * FROM mines_courses NATURAL JOIN mines_courses_meetings;
+
+Set Operations
+	- Relations are sets of tuples
+	- Should be able to do set operations on relations (union, intersection, difference)
+	- SQL: UNION, INTERSECTION, EXCEPT
+	**Example
+	SELECT * FROM mines_courses WHERE course_id LIKE 'CSCI%' UNION SELECT * FROM mines_courses WHERE course_id LIKE 'LAIS%';
+	
+		- Attributes number and type must match
+		- Attribute names will come from first query
+		-**Note: true set operations: result is a set (no duplicates) unless you add keyword ALL (Example SELECT ... UNION ALL SELECT ...)
+
+More DDL
+	- ALTER TABLE
+		- Add a primary key: ALTER TABLE table_name ADD PRIMARY KEY (attr1, attr2,...);
+		- Add a foreign key: ALTER TABLE table_name ADD FOREIGN KEY (attr1, attr2,...) REFERENCES table2 (attr1, attr2, ...);
+		- Adding a column: ALTER TABLE table_name ADD COLUMN column_name type.			- REMOVE COLUMN
+
+	- DROP
+		- DROP object_type object_name; (TABLE, CONSTRAINT, SCHEMA)
+
+	- VIEWS
+		- Like a saved query with a name
+		- CREATE VIEW view_name AS SELECT ...
+		- Reruns query from underlying table
+		- mines_courses_flattened
