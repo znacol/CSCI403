@@ -1,12 +1,26 @@
+CREATE TABLE znacol.hogwarts_students AS SELECT * FROM public.hogwarts1;
+CREATE TABLE znacol.hogwarts_houses AS SELECT * FROM public.hogwarts2;
+CREATE TABLE znacol.hogwarts_dada AS SELECT * FROM public.hogwarts3;
+ALTER TABLE znacol.hogwarts_houses ADD PRIMARY KEY (house);
+ALTER TABLE znacol.hogwarts_students ADD PRIMARY KEY (last, first);
+UPDATE znacol.hogwarts_students SET house=NULL WHERE house='?';
+UPDATE znacol.hogwarts_students SET house='Gryffindor' WHERE house='Griffindor';
+UPDATE znacol.hogwarts_students SET start=NULL WHERE start='?';
+UPDATE znacol.hogwarts_students SET finish=NULL WHERE finish='?';
+ALTER TABLE znacol.hogwarts_students ADD FOREIGN KEY (house) REFERENCES hogwarts_houses (house);
+ALTER TABLE znacol.hogwarts_students ALTER COLUMN start TYPE numeric(4,0) USING start::numeric;
+ALTER TABLE znacol.hogwarts_students ALTER COLUMN finish TYPE numeric(4,0) USING finish::numeric;
 SELECT last, first FROM znacol.hogwarts_students WHERE start=1991 and house='Gryffindor' ORDER BY last, first;
 SELECT COUNT(*) FROM znacol.hogwarts_students WHERE house='Slytherin';
 SELECT MIN(start) FROM znacol.hogwarts_students;
 SELECT COUNT(*) FROM znacol.hogwarts_students WHERE house IS NULL or start IS NULL or finish IS NULL;
 SELECT COUNT(*) FROM znacol.hogwarts_students WHERE house IS NOT NULL and start IS NOT NULL and finish IS NOT NULL;
 SELECT founder FROM znacol.hogwarts_houses AS hh, znacol.hogwarts_students AS hs WHERE first='Morag' AND last='McDougal' AND hh.house=hs.house;
-ELECT last, first FROM znacol.hogwarts_students AS hs, znacol.hogwarts_houses AS hh WHERE hh.animal='Badger' AND hh.house=hs.house ORDER BY last, first;
+SELECT last, first FROM znacol.hogwarts_students AS hs, znacol.hogwarts_houses AS hh WHERE hh.animal='Badger' AND hh.house=hs.house ORDER BY last, first;
 SELECT house, COUNT(*) FROM znacol.hogwarts_students GROUP BY house;
 SELECT last, first FROM znacol.hogwarts_students WHERE start=(SELECT MIN(start) FROM znacol.hogwarts_students);
 SELECT house, COUNT(*) FROM hogwarts_students WHERE start=(SELECT start FROM hogwarts_dada WHERE last='Moody' and first='Alastor') GROUP BY house;
 SELECT * FROM hogwarts_students WHERE house='Gryffindor' AND (start<=(SELECT start FROM hogwarts_dada WHERE last='Lockhart' AND first='Gilderoy') AND finish>=(SELECT finish FROM hogwarts_dada WHERE last='Lockhart' AND first='Gilderoy'));
 SELECT hd.last, hd.first FROM hogwarts_students AS hs, hogwarts_dada AS hd WHERE hs.first=hd.first AND hs.last=hd.last;
+SELECT LEFT(last, 1) FROM hogwarts_students WHERE house IS NULL or start IS NULL or finish IS NULL GROUP BY LEFT(last, 1) HAVING count(*)=8;
+

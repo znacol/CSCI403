@@ -1,0 +1,64 @@
+Zoe Nacol
+CSCI 403 Fall 2015
+Colorado School of Mines
+
+Notes Part II
+---------------------------------------------------------------------------------------------
+9/21/15
+
+Database Design/Entity-Relationship Diagrams
+---------------------------------------------------------------------------------------------
+- Notion: do design work on database
+- ERD (entity relationship diagrams)
+	~1976 (Chen)
+- 3 Levels of Design
+	- Conceptual: understanding the data entitites and relationships between them. High level, useful for communication with stakeholders.
+	- Logical: mapping of conceptual design onto DBMS (SQL)
+	- Physical: where things live on disk, etc.
+
+Components of an ERD
+	- Entities (nouns): things or objects with independent existence
+		- e.g. person, product, company, course, etc.
+		- Attributes: properties describing an entity
+	- Relationships (verbs): describe the way entities are related, interact, refer to each other
+		-e.g. person supervisees employee, instructor teaches course, programmer works on project
+
+	- SEE PAPER NOTES for example diagram and key
+Not captured in ER
+	- Data types
+	- NULL constraints
+
+9/23/15
+
+ERD -> Relational Schema
+	1. Regular entities -> relations with all simple attributes of original entiry. Composite attributes are replaced with their components.
+		Pick one key of entity and make it PRIMARY KEY of relation.Add unique constraint to all other keys.
+	e.g.
+		instructor (first, last, office, email)
+		PRIMARY KEY (first, last)
+
+		course (course_id, title, description, house)
+		PRIMARY KEY (course_id)
+
+	2. Weak entities -> relations with all simple attributes of entity. Add in primary key attribute(s) of owning entity. Set primary key = primary key borrowed from owning entity + partial key of weak entity
+		Set borrowed attribute as foreign key referencing primary key in owning entity
+
+	e.g.
+		section (course_id, section_id)
+		PRIMARY KEY (course_id, section_id)
+		FOREIGN KEY (course_id) references course (course_id)
+
+	3. 1-1 Relationships
+		Let relationship = R
+		Let S, T be entities participating in R
+		a) Suppose S has total participation in R
+			Add to S the primary key attribute of T, make it a foreign key referencing primary key of T
+		b ) If both S, T have total participation in R, can merge S and T as relation
+		c ) lookup table/ x-ref table
+
+	4. 1 N Relationship
+		-> option
+		a ) add primary key from side of relationship to N side, make it a foreign key
+
+		e.g.
+		section (instructor first, instructor last, course_id, section_id)

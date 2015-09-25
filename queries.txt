@@ -26,3 +26,18 @@ Modification Queries
 	UPDATE table_name set a1=value_a1 WHERE condition;
 	
 	DELETE FROM table_bame WHERE condition;
+
+IN,NOT IN
+EXISTS, NOT EXISTS
+
+
+Aggregate Functions: COUNT, SUM, MAX, MIN, AVG
+
+HAVING
+	SELECT column FROM table_name GROUP_BY attribute HAVING COUNT(*) > 5
+
+JOIN (INNER JOIN, LEFT OUTER JOIN, RIGHT OUTER JOIN, NATURAL JOIN)
+	SELECT column FROM table_name JOIN table_name2 ON table1attribute = table2attribute
+
+SET Operations: UNION, INTERSECTION, EXCEPT
+	UNION ALL: keeps duplicates
