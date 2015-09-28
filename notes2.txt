@@ -29,7 +29,7 @@ Not captured in ER
 	- NULL constraints
 
 9/23/15
-
+---------------------------------------------------------------------------------------------------------------------------------------------------------
 ERD -> Relational Schema
 	1. Regular entities -> relations with all simple attributes of original entiry. Composite attributes are replaced with their components.
 		Pick one key of entity and make it PRIMARY KEY of relation.Add unique constraint to all other keys.
@@ -62,3 +62,67 @@ ERD -> Relational Schema
 
 		e.g.
 		section (instructor first, instructor last, course_id, section_id)
+
+9/25/15
+	5. N:M Relationships -> lookup or cross reference table
+		Add a table with attributes = primary key from table 1 and primary key from table 2
+		Primary key is whole tuple
+		Foreign keys back to tables
+
+		e.g.
+		instructor_department_xref (first, last, dept_name)
+
+	6. Multivalued Columns -> relation
+		Attributes are the simple components of the multivalued attribute
+		+ Primary key of owning entity
+		Primary key is union of all attributes (multivalued and borrowed keys)
+		Foreign key back to owning table
+	
+		e.g.
+		meeting (course_id, section_id, days, time, room)
+
+	7. n-Any Relationships
+
+--------------------------------------------------------------------------------------------------
+
+9/28/15
+Relational Algebra
+	- Unary Operations:	|	SQL Correspondence:
+	----------------------------------------------------
+		- Selection	|		- WHERE
+		- Projection	|		- SELECT
+		- Renaming	|		- AS
+
+	- Selection:
+		- Partitions a relation on condition, discards the set which fails condtion
+		Let R represent some relation: sigma_condition (R)
+		e.g. /sigma/course_id = 'CSCI403'(mines_courses)
+		- Condtion is a Boolean expression on attributes of a single tuple
+		- Compound with AND, OR, NOT
+		- Functions such as substring
+
+		Properties of Select:
+			- Degree (number of attributes) in result is same as in original relaiton
+			- Number of tuples in result is <= original; the fraction of tuples selected is called selectivity of the condition
+			- Commutative:
+				sigma_cond1(/sigma_cond2(R)) = sigma_cond2(sigma_cond1(R)) = sigma_cond1 AND cond2 (R)
+	- Projection:
+		- Chooses attributes of a relation to keep
+		- Let R represent some relation: pi_attr1, attr2,... (R)
+		
+		Properties of Project:
+			- Number of rows in result <= original (if chosen attributes do not form a superkey)
+			- Projection is not commutative, rather 
+
+	- Renaming:
+		- Let R represent some relation: rho_... (R)
+
+Sequences of Operations
+	- Can nest unary operators
+
+Set Operations
+	R.A.: Union, Intersection, Set Difference (Minus)
+	SQL: UNION, INTERSECTION, EXCEPT
+
+	Properties:
+		Union and Intersection are commutative and associative
