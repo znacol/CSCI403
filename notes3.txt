@@ -87,6 +87,7 @@ ERD -> Relational Schema
 
 9/28/15
 Relational Algebra
+Unary Operations
 	- Unary Operations:	|	SQL Correspondence:
 	----------------------------------------------------
 		- Selection	|		- WHERE
@@ -117,12 +118,65 @@ Relational Algebra
 	- Renaming:
 		- Let R represent some relation: rho_... (R)
 
-Sequences of Operations
-	- Can nest unary operators
+	Sequences of Operations
+		- Can nest unary operators
 
-Set Operations
+Binary Operations: Set Operations
 	R.A.: Union, Intersection, Set Difference (Minus)
 	SQL: UNION, INTERSECTION, EXCEPT
 
 	Properties:
 		Union and Intersection are commutative and associative
+
+Cross Product (Cartesian)
+	R = A x B
+	Properties:
+		If m attributes in A and n attributes in B, R will have m + n attributes
+		|A| * |B| -> |R|
+	- Mostly useless
+	- Used with subsequent select
+
+	-> Join operation
+
+Completeness:
+	{sigma, pi, rho, union, set difference (-), X} is a complete set.
+
+Join
+	A \join B
+	Compared with a condition
+	General Form: A \join B
+			cond
+		where condition:
+			cond1 AND cond 2 AND ...
+			cond
+
+	e.g.
+		R = mines_courses \join mines_eecs_faculty
+				instructor=name
+
+		\equiv SELECT * FROM mines_courses, mines_eecs_faculty WHERE mines_courses.instructor=mines_eecs_faaculty.name;
+
+Equivalence
+	A \join B = sigma_cond (A x B)
+
+	- Equijoin:
+		theta join where all thetas are '='
+		- duplicate columns
+		- want to project away duplicates
+	- Natural Join:
+		A * B
+		- Equijoin in attributes of A, B that share the same name
+		- Removes duplicate attributes
+	e.g. mines_courses * name=instructor (mines_eecs_faculty)
+	- join selectivity (A * B) =  expected size of result
+
+Extensions
+	Left outer join:
+	- A \leftouterjoin B: get all tuples from A, only tuples from B satisfying cond, NULLs else
+		condition
+
+	Right:
+	Full:
+	Grouping/Aggregation:
+Division
+

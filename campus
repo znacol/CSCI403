@@ -1,2 +1,2 @@
-msjnc -n
+#!/bin/bash
 psql postgresql://znacol@flowers.mines.edu/csci403

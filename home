@@ -1,1 +1,3 @@
+#!/bin/bash
+msjnc -fg &
 psql postgresql://znacol@flowers.mines.edu/csci403
