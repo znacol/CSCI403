@@ -25,12 +25,12 @@ October 2, 2015 \\
 \subsection{Award}
 \paragraph{}Movies can also have awards. Each award has a title and date awarded. Awards have no keys.
 \subsection{Publication Medium}
-\paragraph{} A publication medium can include publications, reviews, and websites regarding the movie. Each instance of a publication medium can include an author and rating. They have no keys.
+\paragraph{} A publication medium can include publications, reviews, and websites regarding the movie. Each instance of a publication medium includes an author and rating with a key on the author name.
 \section{Relationships}
 \paragraph{} Each of the entities listed above have relationships, which can be thought of as a verb, with a movie. There are two different types of relationships covered in this diagram: 1:N and M:N.
 \subsection{1:N}
-\paragraph{}In this representation, both publication mediums and awards have a 1:N relationship with a movie. This means that a movie can have N awards or publications associated with it but awards and publications can each represent only one movie. For example, the Golden Globe Best Film is awarded to only one movie whereas a movie can have multiple awards.
+\paragraph{}In this representation, awards have a 1:N relationship with a movie. This means that a movie can have N awards associated with it but awards can each represent only one movie. For example, the Golden Globe Best Film is awarded to only one movie whereas a movie can have multiple awards.
 \subsection{M:N}
-\paragraph{}In this representaion, directors, writers, movie stars, and producers all have an M:N relationship with a movie. For example, a movie can have M directors and a director can have N movies. This allows the database to store all the works of the people associated with films such that they are all connected in a proper fashion. Sequels and presequels are also represented in an M:N fashion except that the relationship of prequel and sequel is recursive- it connects a movie to another movie.
+\paragraph{}In this representaion, directors, writers, movie stars, publications, and producers all have an M:N relationship with a movie. For example, a movie can have M directors and a director can have N movies. This allows the database to store all the works of the people associated with films such that they are all connected in a proper fashion. Sequels and presequels are also represented in an M:N fashion except that the relationship of prequel and sequel is recursive- it connects a movie to another movie.
 
 \end{document}

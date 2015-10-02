@@ -1,0 +1,62 @@
+10/2/15
+Chapter 14-15
+Intro to Functional Dependencies and Normalization
+	- Idea: measure "goodness" of database schema
+	- Method: highly theoretical using notion functional dependency
+	- Outcome:  practical measure of goodness and algorithm for top down design of schema
+	
+	Informal Measures/Guidelines
+		1. Clear semantics
+		2. Reducing redundancy
+		3. Reducing NULLs
+		4. Disallowing the generation of spurious tuple generation
+
+	General (Intuitive) Methods
+		1. Avoid redundancy- each piece of information (not including foreign keys) to appear once and only once in database
+			e.g. instead of mines_courses, mines_eecs_faculty suppose we have mines_faculty_courses (see table below)
+		2. Insertion anomalies
+			e.g. Suppose we want to insert a new faculty member but don't know classes yet, NULLs violate primary key integrity constraint (see last row in below table)
+			- What happens when subsequently give new faculty courses?
+		3. Deletion anomalies
+			- Deletion of last course for faculty member deletes faculty member
+		4. Update anomalies
+			- What if update to redundant data
+		5. Insufficiently specified or incomplete attribute sets
+
+	instructor	|	course_id	|	section		|	title		|	office		|	email
+	---------------------------------------------------------------------------------------------------------------------------------
+	CPW		|	CSCI403		|	A		|	DB		|	280I		|	cpainter
+	CPW		|	CSCI262		|	A		|	DS		|	280I		|	cpainter
+	CPW		|	CSCI262		|	B		|	DS		|	280I		|	cpainter
+	new instructor  |	NULL		|	NULL		|	NULL		|	BB...		|	email
+
+	Methodology (Normalization)
+		- Start with ERD, forms/reports/screens, mega-relations
+		- Loop
+			- Find relations which violate "goodness" (discover via properties of relation)
+			- Decompose into 2 smaller relations
+			- Repeat until all good
+	"Normal Forms"
+		1st Normal Form: 1NF
+				2NF
+				3NF
+				BCNF (Boyce Codd Normal Form)
+				4NF
+Functional Dependency
+	**An FD is a constraint between two sets of attributes from some relation R.
+	**Def: A functional dependency, X -> Y, where X = {x1,x2,x3,...} \subset R
+						      Y = {y1,y2,y2,...} \subset R
+		exists if:
+			\upsidedownA t1,t2 \elementof r(R),
+			t1[x] = t2[x] -> t1[y] = t2[y].
+	- x determines y functionally
+
+	Trivial FDs: X -> Y, Y \subset X
+	Nontrivial FDs: X -> Y, Y !\subset X
+	Completely Nontrivial FDs: X -> Y, y \intersection X = \nullset
+		e.g. FDs in table above
+		instructor -> {email, office}
+		course_id -> title
+		{course_id, section} -> instructor (reversed not valid)
+		
+		
