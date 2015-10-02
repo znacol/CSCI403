@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.9.9)  2 OCT 2015 15:04
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.9.10)  2 OCT 2015 16:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -108,7 +108,7 @@ LaTeX Font Info:    ... okay on input line 5.
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] (./WriteUp.aux) ) 
 Here is how much of TeX's memory you used:
  735 strings out of 495028
- 10017 string characters out of 6181498
+ 10017 string characters out of 6181497
  66415 words of memory out of 5000000
  4008 multiletter control sequences out of 15000+600000
  5456 words of font info for 20 fonts, out of 8000000 for 9000
