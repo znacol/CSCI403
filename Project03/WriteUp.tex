@@ -1,13 +1,36 @@
-\documentclass{12pt]{article}
-
+\documentclass[12pt]{article}
 \pagestyle{plain}
+\usepackage[margin=25mm]{geometry}
+%==============================================================
 \begin{document}
+%==============================================================
 \begin{flushleft}
 Zoe Nacol \\
 CSCI 403 Fall 2015 \\
-Project 03: Entity Relationship Diagram
+Project 03: Entity Relationship Diagram \\
 October 2, 2015 \\
 \end{flushleft}
-
+%=============================================================
+\section{Introduction}
+\paragraph{}This Entity Relationship Diagram (ERD) represents a database to store movies and their associated data. In this diagram, we consider movies as the focus of the design. Each entity, which can be thought of as a noun, can have attributes that describe itself, e.g. a name. Most entities have keys, which means that no other entity of that type can have the same value of the attribute (it is unique to that entity). For example, there can not be two directors with the same first and last name and date of birth.
+\section{Entities Related to Movie and Their Attributes}
+\subsection{Movie}
+\paragraph{}A movie has a title, year, rating(s), director(s), writer(s), movie star(s), producer(s), and award(s). It can also have associated prequels and sequels. Each movie has a key on both the title and the year released. The below entities are all related to a movie in some manner.
+\subsection{Writer, Director}
+\paragraph{}In this diagram, a movie can have multiple writers and directors. These two entities, writer and director, are separate but are represented with the same attributes. Each has an associated name (first and last) and date of birth that are both key attributes.
+\subsection{Movie Star}
+\paragraph{}A movie also has a relationship with movie stars. Each movie star has a name (first and last); date of birth; date of death, if applicable; age, which is derived from date of birth; and the state and city in which they reside. Both the name and date of birth are the keys for movie stars.
+\subsection{Production Company}
+\paragraph{}The production company(ies) of a movie include the name of the company and the corporate address. Each part of the address, street, city, zip, and state, are stored separately as composite attributes. Both the name and address are keys.
+\subsection{Award}
+\paragraph{}Movies can also have awards. Each award has a title and date awarded. Awards have no keys.
+\subsection{Publication Medium}
+\paragraph{} A publication medium can include publications, reviews, and websites regarding the movie. Each instance of a publication medium can include an author and rating. They have no keys.
+\section{Relationships}
+\paragraph{} Each of the entities listed above have relationships, which can be thought of as a verb, with a movie. There are two different types of relationships covered in this diagram: 1:N and M:N.
+\subsection{1:N}
+\paragraph{}In this representation, both publication mediums and awards have a 1:N relationship with a movie. This means that a movie can have N awards or publications associated with it but awards and publications can each represent only one movie. For example, the Golden Globe Best Film is awarded to only one movie whereas a movie can have multiple awards.
+\subsection{M:N}
+\paragraph{}In this representaion, directors, writers, movie stars, and producers all have an M:N relationship with a movie. For example, a movie can have M directors and a director can have N movies. This allows the database to store all the works of the people associated with films such that they are all connected in a proper fashion. Sequels and presequels are also represented in an M:N fashion except that the relationship of prequel and sequel is recursive- it connects a movie to another movie.
 
 \end{document}
