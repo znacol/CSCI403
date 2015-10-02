@@ -142,7 +142,7 @@
 </symbol>
 </g>
 </defs>
-<g id="surface1785">
+<g id="surface1891">
 <rect x="0" y="0" width="1281" height="778" style="fill:rgb(100%,100%,100%);fill-opacity:1;stroke:none;"/>
 <path style="fill-rule:evenodd;fill:rgb(100%,100%,100%);fill-opacity:1;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 23 5.000078 L 27.4625 5.000078 L 27.4625 7.27293 L 23 7.27293 Z M 23 5.000078 " transform="matrix(20,0,0,20,-38,228.6)"/>
 <g style="fill:rgb(0%,0%,0%);fill-opacity:1;">
@@ -617,6 +617,7 @@
   <use xlink:href="#glyph1-21" x="790.300781" y="87"/>
   <use xlink:href="#glyph1-7" x="797.996094" y="87"/>
 </g>
+<path style="fill:none;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 40.644922 -6.88 L 42.184961 -6.88 " transform="matrix(20,0,0,20,-38,228.6)"/>
 <path style="fill-rule:evenodd;fill:rgb(100%,100%,100%);fill-opacity:1;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 39.669922 -10.43 C 39.669922 -9.93293 38.791406 -9.53 37.707422 -9.53 C 36.623633 -9.53 35.744922 -9.93293 35.744922 -10.43 C 35.744922 -10.92707 36.623633 -11.33 37.707422 -11.33 C 38.791406 -11.33 39.669922 -10.92707 39.669922 -10.43 " transform="matrix(20,0,0,20,-38,228.6)"/>
 <g style="fill:rgb(0%,0%,0%);fill-opacity:1;">
   <use xlink:href="#glyph1-24" x="696.910156" y="24"/>
