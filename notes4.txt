@@ -58,5 +58,8 @@ Functional Dependency
 		instructor -> {email, office}
 		course_id -> title
 		{course_id, section} -> instructor (reversed not valid)
-		
-		
+
+10/5/15
+	X -> Y for some R
+	FDs is generalization of keys
+	Suppose R = X \union Y, X -> Y
