@@ -1,0 +1,17 @@
+Artist
+ID(primary)	Name	Type
+
+Album
+ID(primary)	Artist.ID(foreign)	Label.ID(foreign)	Title	Year	Genre
+
+Label
+ID (primary)	Name	Location
+
+Track
+Album.ID(foreign)	Name(primary)	Number
+
+Is Member Of
+Artist.Group.ID(primary; foreign)	Artist.Individual.ID(primary; foreign)
+
+Genre
+Album.ID(foreign; primary)	Genre(primary)

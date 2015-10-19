@@ -1,0 +1,15 @@
+import pg8000
+import getpass
+secret = getpass()
+secret
+
+connection = pg8000.connect(user="znacol",password="password",host="flowers.mines.edu",database="csci403")
+connection
+cursor = connection.cursor()
+cursor.execute("SELECT * FROM mines_courses WHERE instructor = 'Painter-Wakefield, Christopher'")
+cursor.rowcount
+results = cursor.fetchall()
+results
+
+query1 = "SELECT course_id, section, title FROM mines_courses WHERE instructor = %s"
+cursor.execute(query1, ('Mehta, Dinesh',)

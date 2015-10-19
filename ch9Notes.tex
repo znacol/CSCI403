@@ -1,0 +1,60 @@
+\documentclass[12pt]{article}
+\usepackage[margin=25mm]{geometry}
+\begin{document}
+\author{Zoe Nacol}
+\date{Fall 2015}
+\title{CSCI 403: Database Management}
+\maketitle
+\section{Chapter 9: Relational Database Design Using ER-to-Relational Mapping}
+	\subsection{ER-to-Relational Mapping Algorithm}
+		\begin{enumerate}
+			\item
+				Mapping of regular entity types
+				\begin{itemize}
+					\item
+						For each regular (strong) entity type E in the ER scheme, create a relation R that includes all the simple attributes of E
+					\item
+						Include only the simple component attributes of a composite attribute
+					\item
+						Choose one of the key attributes of E as the primary key of R
+					\item
+						if multiple keys were identified for E during the conceptual design, the information descriving the attributes that form each additonal key is kept in order to specify seconday (unique) keys of relation R. Knowledge about keys is also kept for indexing purposes and other types of analyses
+				\end{itemize}
+			\item
+				Mapping of weak entity types
+				\begin{itemize}
+					\item
+						FOr each weak entity type W int he ER scheme with owner entity type E, create a relation R and include all simple attributes (or simple components of composite attributes) of W as attributes of R. In addition, include as foreign key attributes of R, the primary key attribute(s) of the relation(s) that correspond to the owner eneity type(s); this takes care fo mapping the identifying relationship type of W. The primary key of R is the combination of the primary key(s) of the owner(s) and the partial key of the weak enitty type W, if any. If there is a weak entity type $E_2$ whose owner is also a weak enitity type $E_1$, then $E_1$ should be mapped before $E_2$ to determine its primary key first.
+				\end{itemize}
+			\item
+				Mapping of binary 1:1 relationship types
+				\begin{itemize}
+					\item
+						For each binary 1:1 relationship type R in the ER schema, identify the relations S and T that correspond to the entity types participating in R. There are 3 possible approaches: (1) the foreign key approach, (2) the merged relationship approach, and (3) the cross reference or relationship relation approach. The first approach is the most useful and should be followed unless special conditions exist, as we discuss below.
+					\item
+						\textbf{Foreign key approach:}  Choose one the relations- S, say- and inlcude as a foreign key in S the primary key of T. It is better to choose an entity type with total participation in R in the role of S. Include all the simple attributes (or simple components of composite attributes) of the 1:1 relationship type R as attributes of S. Note that is is possible to include the primary key of S as a foreign key in T instead.
+					\item
+						\textbf{Merged relation approach:} An alternative mapping of a 1:1 relationship type is to merge the two entity types and the relationship into a single relation. This is possible when both participations are total, as this would indicate that the two tables will have the exact same number of tuples at all time.
+					\item
+						\textbf{Cross-reference or relationship relation apprach:} Third option is ot set up a third relation R for the purpose of cross-referencing the primary keys of the two relations S and T representing the the entity types. This approach is required for binary M:N relationships.
+				\end{itemize}
+			\item
+				Mapping of binary 1:N relationship types
+				\begin{itemize}
+					\item
+						For each regular binary 1:N relationship type R, identify the relation S that represents the participating entity type at the N-side of the relationship type. Include as foreign key in S the primary key of the relation T that represents the other eneity type participating in R; we do this because each entity instance on the N-side is related to at most one entity instance on the 1-side of the relationship type. Include any simple attribtues (or simple components of the composite attribtues) of the 1:N relationship type as attributes of S.
+				\end{itemize}
+			\item
+				Mapping of binary M:N relationship types
+				\begin{itemize}
+					\item
+						For each binary M:N relationship type R, create a new relatoin S to represent R. Include as foreign key attributes in S the primary keys of the relations that represent the participating eneity types; their combination will form the primary key of S. Also include any simple attibutes of the M:N relationship type (or simple components of composite attribtues) as attributes of S. Notice that we cannnot represent an M:N relationship type by a single foreign key attribute in one of the participating relations because of the M:N cardinality ratio; we must create a separate relationship relation S.
+				\end{itemize}
+			\item
+				Mapping of Multivalued Attributes
+				\begin{itemize}
+					\item
+						For each multivalued attribute A, create a new relation R. This relation R will include an attribute corresponding to A, plus the primary key attribute K- as a foreign key in R- of the realtion that represents the entity type or relationship type that has A as a multivalued attribute. The primary key of R is the combination of A and K. If the multivalued attribute is composite, we include its simple components.
+				\end{itemize}
+		\end{enumerate}
+\end{document}
