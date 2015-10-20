@@ -2,16 +2,16 @@ Artist
 ID(primary)	Name	Type
 
 Album
-ID(primary)	Artist.ID(foreign)	Label.ID(foreign)	Title	Year	Genre
+ID(primary)	Artist.ID(foreign)	Label.ID(foreign)	Title	Year
 
 Label
 ID (primary)	Name	Location
 
 Track
-Album.ID(foreign)	Name(primary)	Number
+Album.ID(primary; foreign)	Name(primary)	Number
 
 Is Member Of
-Artist.Group.ID(primary; foreign)	Artist.Individual.ID(primary; foreign)
+Artist.Group.ID(primary; foreign)	Artist.Individual.ID(primary; foreign)	Begin Year	End Year
 
 Genre
 Album.ID(foreign; primary)	Genre(primary)
