@@ -1,0 +1,74 @@
+\documentclass[12pt]{article}
+\pagestyle{plain}
+\usepackage[margin=25mm]{geometry}
+
+\begin{document}
+	\section*{Disks}
+		\begin{itemize}
+			\item
+				\begin{itemize}
+				\item	
+					Seek time: moving read-write head (9 ms)
+				\item
+					Rotational latency: data moving into position under r/w head (2 ms)
+				\end{itemize}
+			\item
+				Access time: ~ 10 ms
+			\item
+				Blocks: fixed size chunk of data: ~512 bytes - 16 kb
+		\end{itemize}
+		\subsection*{File Organization}
+		\begin{itemize}
+			\item
+				Storing a relation on disk
+			\item
+				Many options:
+			\begin{itemize}
+				\item
+					Structured storage
+				\item
+					Unstructured ("heap") storage
+			\end{itemize}
+			\item
+				Ordered Storage
+				\begin{itemize}
+					\item
+						Within blocks order primary key
+					\item
+						Blocks recorded in PK order
+					\item
+						Reads: lookup by binary search; $O(log_2(n))$
+					\item
+						Inserts: expensive; easier if maintain some empty space
+					\item
+						Deletions: similar
+				\end{itemize}
+			\item
+				Analysis
+				\begin{itemize}
+					\item
+				\end{itemize}
+			\item
+				B-trees
+				\begin{itemize}
+					\item
+						Balanced search tree
+					\item
+						'large' number of entries per node $\equiv$ large number of children of each node
+					\item
+						Def of B-tree of order m
+						\begin{enumerate}
+							\item
+								Every node has at most m children
+							\item
+								Every non-leaf node (except root) has at least $\frac{m}{2}$ children
+							\item
+								The root has at least 2 children (unless a leaf)
+							\item
+								A non-leaf node with k children has k-1 leaves
+							\item
+								All leaves appear on some level
+						\end{enumerate}
+				\end{itemize}
+		\end{itemize}
+\end{document}
