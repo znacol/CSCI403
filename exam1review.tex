@@ -1,0 +1,115 @@
+\documentclass[12pt]{article}
+\pagestyle{plain}
+\usepackage[margin=25mm]{geometry}
+%========================================================================================
+\begin{document}
+\title{CSCI403 Exam I Review}
+\maketitle
+
+	\begin{enumerate}
+		\item
+			20 multiple choice and true false questions
+		\item
+			Relational Model
+		\begin{itemize}
+			\item
+				Relations, attributes, tuples
+			\item
+				Schemas
+			\item
+				Keys, constraints
+		\end{itemize}
+		\item
+			SQL
+		\begin{itemize}
+			\item
+				SELECT
+				\begin{itemize}
+					\item
+						Joins
+					\item
+						Order by
+					\item
+						Grouping and aggregate functions
+				\end{itemize}
+		\end{itemize}
+
+		\item
+			Database Design
+		\begin{itemize}
+			\item
+				Entity-relationship diagrams
+			\item
+				Mapping to SQL schema
+		\end{itemize}
+
+		\item
+			Relational Algebra
+		\begin{itemize}
+			\item
+				Project, select, rename
+			\item
+				Cross product and joins
+			\item
+				Self operations
+		\end{itemize}
+		\item
+			Normalization
+		\begin{itemize}
+			\item
+				Functional dependencies and Boyce-Codd Normal Form
+			\item
+				Multi-value dependencies and 4th Normal Form
+		\end{itemize}
+
+		\item
+			Not On Midterm
+		\begin{itemize}
+			\item
+				DDL
+			\item
+				UML
+			\item
+				Relational algebra "extensions"
+				\begin{itemize}
+					\item
+						DIVIDE, etc.
+					\item
+						Grouping and aggregation
+					\item
+						Outer joins
+				\end{itemize}
+			\item
+				1NF-3NF
+			\item
+				Programming in Python and Java
+		\end{itemize}
+		
+
+	\item
+		4NF Example
+		\begin{itemize}
+			\item
+				instructor	course\_id		hobby \\
+				CPW		CSCI 262		Gardening \\
+				CPW		CSCI 262		Sci Fi \\
+				CPW		CSCI 403		Gardening \\
+				CPW		CSCI 403		Sci Fi
+			\item
+				Instructor multi determines course\_id
+		\end{itemize}
+	\item
+		Theta Join
+		\begin{itemize}
+			\item
+				Relation R, S
+			\item
+				R $\bowtie_{cond}$ S
+			\item
+				cond = $r_1 \theta s_1$ AND $r_2 \theta s_2$ AND ...
+			\item
+				$\theta$ is an operator from: {$=, <>, <, >, \geq, leq$}
+		\end{itemize}
+	\end{enumerate}
+
+\end{document}
