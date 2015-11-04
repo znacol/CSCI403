@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-# example.py
+# 
 #
 # CSCI 403 example Python script
 #

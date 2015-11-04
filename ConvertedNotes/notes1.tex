@@ -1,0 +1,59 @@
+\usepackage[12pt]{article}
+\begin{document}
+
+\section{Dabatase Management System (DBMS) Fundamentals}
+	\begin{itemize}
+		\item self describing data
+		\item program-data separation (independence in book)
+		\item data abstraction
+		\item network/multiuser access (transaction control)
+		\item client/server architecture
+	\end{itemize}
+
+	\section{History- Early Models}
+	\item pre-1960s
+	\item 1962: term "database"
+	\item 1964: GE's IDS by Charles Bachman (Turing Award 1973)
+		\begin{itemize}
+			\item network model
+				\begin{itemize}
+					\item records	record-type
+					\item sets		set-type
+				\end{itemize}
+		- CODASYL- standard in 1969
+		\end{itemize}
+	\item 1966-68: IBM's IMS (Information Management System for Apollo); first hierarchial model DB
+	\item navigational model: both IDS and IMS
+	\item 1970: relational model (IBM's E.F. Codd)
+	\item 1977: System R (IBM)- SEQUEL -> SQL
+	\item 1977-79: Oracle
+	\item 1973: INGRES- Berkeley- Michael Stonebraker \& Eugene Wong
+	\item 1985: Postgres
+													8/31/15
+	1960: navigational databases
+	1970: relational model
+	NoSQL
+		- scalability
+		- flexibility (JSON, XML)
+		- fault tolerance
+Relational Databases
+	- Rows are called tuples
+	- A relation is a set of tuples
+	-** Tuple: collection of named/ordered values ('CPW', 'CSCI 403', 'Database Management', 3)
+		- Attribute names: 		    (INSTRUCTOR, COURSE ID, TITLE, HOURS)
+		- Domain: dom(INSTRUCTOR) = 'string'
+			- may include NULL
+	-** Relation schema:
+		- R = R(A1, A2, ..., An)
+		- Set of attributes to store in relation
+		- R has degree n
+		- Ai has domain dom(Ai)
+	-** Relation (a.k.a. relation state):
+		- A set of tuples consistent with relation schema
+		-r(R) is a subset of (dom(A1) * dom(A2) * ... * dom(An)
+
+	Note: "relation is a set" -> no ordering of tuple in relation
+		also -> no duplicates (* in practice)
+	Note: "attributes are set" ->ordering of sttributes in a relation doesn't matter
+
+\end{document}

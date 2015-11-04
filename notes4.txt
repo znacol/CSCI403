@@ -1,65 +1,182 @@
-10/2/15
-Chapter 14-15
-Intro to Functional Dependencies and Normalization
-	- Idea: measure "goodness" of database schema
-	- Method: highly theoretical using notion functional dependency
-	- Outcome:  practical measure of goodness and algorithm for top down design of schema
+Zoe Nacol
+CSCI 403 Fall 2015
+Colorado School of Mines
+
+Notes Part III
+---------------------------------------------------------------------------------------------
+9/21/15
+
+Database Design/Entity-Relationship Diagrams
+---------------------------------------------------------------------------------------------
+- Notion: do design work on database
+- ERD (entity relationship diagrams)
+	~1976 (Chen)
+- 3 Levels of Design
+	- Conceptual: understanding the data entitites and relationships between them. High level, useful for communication with stakeholders.
+	- Logical: mapping of conceptual design onto DBMS (SQL)
+	- Physical: where things live on disk, etc.
+
+Components of an ERD
+	- Entities (nouns): things or objects with independent existence
+		- e.g. person, product, company, course, etc.
+		- Attributes: properties describing an entity
+	- Relationships (verbs): describe the way entities are related, interact, refer to each other
+		-e.g. person supervisees employee, instructor teaches course, programmer works on project
+
+	- SEE PAPER NOTES for example diagram and key
+Not captured in ER
+	- Data types
+	- NULL constraints
+
+9/23/15
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+ERD -> Relational Schema
+	1. Regular entities -> relations with all simple attributes of original entiry. Composite attributes are replaced with their components.
+		Pick one key of entity and make it PRIMARY KEY of relation.Add unique constraint to all other keys.
+	e.g.
+		instructor (first, last, office, email)
+		PRIMARY KEY (first, last)
+
+		course (course_id, title, description, house)
+		PRIMARY KEY (course_id)
+
+	2. Weak entities -> relations with all simple attributes of entity. Add in primary key attribute(s) of owning entity. Set primary key = primary key borrowed from owning entity + partial key of weak entity
+		Set borrowed attribute as foreign key referencing primary key in owning entity
+
+	e.g.
+		section (course_id, section_id)
+		PRIMARY KEY (course_id, section_id)
+		FOREIGN KEY (course_id) references course (course_id)
+
+	3. 1-1 Relationships
+		Let relationship = R
+		Let S, T be entities participating in R
+		a) Suppose S has total participation in R
+			Add to S the primary key attribute of T, make it a foreign key referencing primary key of T
+		b ) If both S, T have total participation in R, can merge S and T as relation
+		c ) lookup table/ x-ref table
+
+	4. 1 N Relationship
+		-> option
+		a ) add primary key from side of relationship to N side, make it a foreign key
+
+		e.g.
+		section (instructor first, instructor last, course_id, section_id)
+
+9/25/15
+	5. N:M Relationships -> lookup or cross reference table
+		Add a table with attributes = primary key from table 1 and primary key from table 2
+		Primary key is whole tuple
+		Foreign keys back to tables
+
+		e.g.
+		instructor_department_xref (first, last, dept_name)
+
+	6. Multivalued Columns -> relation
+		Attributes are the simple components of the multivalued attribute
+		+ Primary key of owning entity
+		Primary key is union of all attributes (multivalued and borrowed keys)
+		Foreign key back to owning table
 	
-	Informal Measures/Guidelines
-		1. Clear semantics
-		2. Reducing redundancy
-		3. Reducing NULLs
-		4. Disallowing the generation of spurious tuple generation
+		e.g.
+		meeting (course_id, section_id, days, time, room)
 
-	General (Intuitive) Methods
-		1. Avoid redundancy- each piece of information (not including foreign keys) to appear once and only once in database
-			e.g. instead of mines_courses, mines_eecs_faculty suppose we have mines_faculty_courses (see table below)
-		2. Insertion anomalies
-			e.g. Suppose we want to insert a new faculty member but don't know classes yet, NULLs violate primary key integrity constraint (see last row in below table)
-			- What happens when subsequently give new faculty courses?
-		3. Deletion anomalies
-			- Deletion of last course for faculty member deletes faculty member
-		4. Update anomalies
-			- What if update to redundant data
-		5. Insufficiently specified or incomplete attribute sets
+	7. n-Any Relationships
 
-	instructor	|	course_id	|	section		|	title		|	office		|	email
-	---------------------------------------------------------------------------------------------------------------------------------
-	CPW		|	CSCI403		|	A		|	DB		|	280I		|	cpainter
-	CPW		|	CSCI262		|	A		|	DS		|	280I		|	cpainter
-	CPW		|	CSCI262		|	B		|	DS		|	280I		|	cpainter
-	new instructor  |	NULL		|	NULL		|	NULL		|	BB...		|	email
+--------------------------------------------------------------------------------------------------
 
-	Methodology (Normalization)
-		- Start with ERD, forms/reports/screens, mega-relations
-		- Loop
-			- Find relations which violate "goodness" (discover via properties of relation)
-			- Decompose into 2 smaller relations
-			- Repeat until all good
-	"Normal Forms"
-		1st Normal Form: 1NF
-				2NF
-				3NF
-				BCNF (Boyce Codd Normal Form)
-				4NF
-Functional Dependency
-	**An FD is a constraint between two sets of attributes from some relation R.
-	**Def: A functional dependency, X -> Y, where X = {x1,x2,x3,...} \subset R
-						      Y = {y1,y2,y2,...} \subset R
-		exists if:
-			\upsidedownA t1,t2 \elementof r(R),
-			t1[x] = t2[x] -> t1[y] = t2[y].
-	- x determines y functionally
+9/28/15
+Relational Algebra
+Unary Operations
+	- Unary Operations:	|	SQL Correspondence:
+	----------------------------------------------------
+		- Selection	|		- WHERE
+		- Projection	|		- SELECT
+		- Renaming	|		- AS
 
-	Trivial FDs: X -> Y, Y \subset X
-	Nontrivial FDs: X -> Y, Y !\subset X
-	Completely Nontrivial FDs: X -> Y, y \intersection X = \nullset
-		e.g. FDs in table above
-		instructor -> {email, office}
-		course_id -> title
-		{course_id, section} -> instructor (reversed not valid)
+	- Selection:
+		- Partitions a relation on condition, discards the set which fails condtion
+		Let R represent some relation: sigma_condition (R)
+		e.g. /sigma/course_id = 'CSCI403'(mines_courses)
+		- Condtion is a Boolean expression on attributes of a single tuple
+		- Compound with AND, OR, NOT
+		- Functions such as substring
 
-10/5/15
-	X -> Y for some R
-	FDs is generalization of keys
-	Suppose R = X \union Y, X -> Y
+		Properties of Select:
+			- Degree (number of attributes) in result is same as in original relaiton
+			- Number of tuples in result is <= original; the fraction of tuples selected is called selectivity of the condition
+			- Commutative:
+				sigma_cond1(/sigma_cond2(R)) = sigma_cond2(sigma_cond1(R)) = sigma_cond1 AND cond2 (R)
+	- Projection:
+		- Chooses attributes of a relation to keep
+		- Let R represent some relation: pi_attr1, attr2,... (R)
+		
+		Properties of Project:
+			- Number of rows in result <= original (if chosen attributes do not form a superkey)
+			- Projection is not commutative, rather 
+
+	- Renaming:
+		- Let R represent some relation: rho_... (R)
+
+	Sequences of Operations
+		- Can nest unary operators
+
+Binary Operations: Set Operations
+	R.A.: Union, Intersection, Set Difference (Minus)
+	SQL: UNION, INTERSECTION, EXCEPT
+
+	Properties:
+		Union and Intersection are commutative and associative
+
+Cross Product (Cartesian)
+	R = A x B
+	Properties:
+		If m attributes in A and n attributes in B, R will have m + n attributes
+		|A| * |B| -> |R|
+	- Mostly useless
+	- Used with subsequent select
+
+	-> Join operation
+
+Completeness:
+	{sigma, pi, rho, union, set difference (-), X} is a complete set.
+
+Join
+	A \join B
+	Compared with a condition
+	General Form: A \join B
+			cond
+		where condition:
+			cond1 AND cond 2 AND ...
+			cond
+
+	e.g.
+		R = mines_courses \join mines_eecs_faculty
+				instructor=name
+
+		\equiv SELECT * FROM mines_courses, mines_eecs_faculty WHERE mines_courses.instructor=mines_eecs_faaculty.name;
+
+Equivalence
+	A \join B = sigma_cond (A x B)
+
+	- Equijoin:
+		theta join where all thetas are '='
+		- duplicate columns
+		- want to project away duplicates
+	- Natural Join:
+		A * B
+		- Equijoin in attributes of A, B that share the same name
+		- Removes duplicate attributes
+	e.g. mines_courses * name=instructor (mines_eecs_faculty)
+	- join selectivity (A * B) =  expected size of result
+
+Extensions
+	Left outer join:
+	- A \leftouterjoin B: get all tuples from A, only tuples from B satisfying cond, NULLs else
+		condition
+
+	Right:
+	Full:
+	Grouping/Aggregation:
+Division
+
