@@ -41,3 +41,6 @@ JOIN (INNER JOIN, LEFT OUTER JOIN, RIGHT OUTER JOIN, NATURAL JOIN)
 
 SET Operations: UNION, INTERSECTION, EXCEPT
 	UNION ALL: keeps duplicates
+
+explain [query]
+	gives cost estimate

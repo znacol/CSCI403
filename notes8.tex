@@ -1,0 +1,38 @@
+\documentclass[12pt]{article}
+\pagestyle{plain}
+\usepackage[margin=25mm]{geometry}
+\usepackage{mathtools}
+
+\begin{document}
+	\section*{Query Optimization}
+		\begin{enumerate}
+			\item
+				Conjunction of SELECT operations $\rightarrow$ cascade of selects \\
+				$\sigma_{c1} AND \sigma_{c2} AND \cdots$ \\
+				$=\sigma_{c1}(\sigma_{c2}(\sigma_{c3}(\cdots)))$
+			\item
+				Commutativity of SELECT \\
+				$\sigma_{c1}(\sigma_{c2}(R)) = \sigma_{c2}(\sigma_{c1}(R))$
+			\item
+				Cascade of Projections operations: only last projection step counts \\
+				$\pi_{x}(\pi_{y}(\pi_{z}(\cdots))) = \pi_{x}(\cdots)$
+			\item
+				Commutativity of $\sigma, \pi$
+			\item
+				$\bowtie$ and $X$ are commutative
+			\item
+				Commutativity of $\sigma$ with $\bowtie$ and $X$ when $\sigma$ condition applies to a single table involved in the $\bowtie$ or $X$ \\
+				$\sigma_{A[x]=\cdots} = (A \times B) = (\sigma_{A[x]=\cdots}(A) \times B)$
+			\item
+				Commutativity of $\pi$ with $\bowtie$ and $X$ when join (or X) only involved attributes in projection
+			\item
+				Associativity of $\bowtie, X$
+		\end{enumerate}
+	\section*{Heuristic Algorithm for Optimizing Query Tree}
+		\begin{enumerate}
+			\item
+				Break up any conjunction of select conditions into a cascade
+			\item
+
+		\end{enumerate}
+\end{document}
