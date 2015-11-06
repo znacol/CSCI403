@@ -76,13 +76,15 @@ def search():
         query = """SELECT album_id, name, title, year
         FROM ((SELECT * FROM album_genre where genre = %s) as subquery
         JOIN album ON album.id=subquery.album_id) as subquery2
-        JOIN artist on artist.id=subquery2.artist_id"""
+        JOIN artist on artist.id=subquery2.artist_id
+        ORDER BY name"""
     elif ans=="3":
         fin = input("Please enter the keyword (case insensitive): ")
         fin = '%' + fin + '%'
         query = """SELECT subquery.id, name, title, year FROM
                 (SELECT * FROM album WHERE UPPER(title) LIKE UPPER(%s)) as subquery
-                JOIN artist ON artist.id=subquery.artist_id"""
+                JOIN artist ON artist.id=subquery.artist_id
+                ORDER BY name"""
     elif ans !="":
         print("Invalid selection. Try again.")
         search()
@@ -91,15 +93,17 @@ def search():
     try:
        cursor.execute(query, (fin,));
     except pg8000.Error as e:
-        print('Databse Error: ', e.args[2])
+        print('Database Error: ', e.args[2])
     
     results = cursor.fetchall()
-
-    print("\n ID \t Artist \t \t Album \t \t \t Year")
+    
+    fmt = '{0:<10}|{1:^25}|{2:^40}|{3:>5}'
+    print ("\n")
+    print(fmt.format('Album ID', 'Artist', 'Title', 'Year'))
     i = 0
     for row in results:
         alID, name, title, year = row
-        print(alID, "\t", name, "\t \t", title, "\t", year)
+        print(fmt.format(alID, name, title, year))
         i=i+1
     print("\n", i, " results found!")
 
@@ -116,7 +120,7 @@ def insert():
        cursor.execute(query, (artist, title, year));
        db.commit()
     except pg8000.Error as e:
-        print('Databse Error: ', e.args[2])
+        print('Database Error: ', e.args[2])
         db.rollback()
 
     query = """SELECT id FROM album WHERE artist_id = %s AND title = %s AND year = %s"""        # get album id
@@ -136,7 +140,7 @@ def searchArtist():                                                     # displa
     try:
        cursor.execute(query);
     except pg8000.Error as e:
-        print('Databse Error: ', e.args[2])
+        print('Database Error: ', e.args[2])
     
     results = cursor.fetchall()
     i = 0
@@ -154,7 +158,7 @@ def insertAlbumGenre(album_id, genre):                                  # insert
         cursor.execute(query, (album_id, genre));
         db.commit()
     except pg8000.Error as e:
-        print('Databse Error: ', e.args[2])
+        print('Database Error: ', e.args[2])
         db.rollback()
 
 def modify():
@@ -163,13 +167,18 @@ def modify():
 
     # print genres
     query = """SELECT genre FROM album_genre WHERE album_id = %s"""
-
     try:
         cursor.execute(query, (alId, ));
         db.commit()
     except pg8000.Error as e:
         print('Databse Error: ', e.args[2])
         db.rollback()
+    results = cursor.fetchall()
+    print("\n Genre")
+    for row in results:
+        genre = row
+        print(genre)
+
     ans=True
     while ans:                                                              # modify menu loops until user says to exit
         print("""
@@ -185,21 +194,30 @@ def modify():
         elif ans=="2":
             fin=input("Please enter year: ")
             query = """UPDATE album SET year = %s WHERE id = %s"""
-        elif ans==3:
+        elif ans=="3":
             fin=input("Please enter genre(s) separated by commas: ")
-            query = """UPDATE album SET title = %s WHERE id = %s"""
+            query = """DELETE FROM album_genre WHERE album_id=%s"""
+            try:
+                cursor.execute(query, (alId,));
+                db.commit()
+            except pg8000.Error as e:
+                print('Database Error: ', e.args[2])
+                db.rollback()
+            genre_list = fin.split(',')
+            for g in genre_list:
+                insertAlbumGenre(alId, g.strip())
         elif ans=="4":
             return
         elif ans!="":
             print("Invalid Selection. Please try again.")
             return
-
-        try:
-            cursor.execute(query, (fin, alId));
-            db.commit()
-        except pg8000.Error as e:
-            print('Databse Error: ', e.args[2])
-            db.rollback()
+        if ans!="3":
+            try:
+                cursor.execute(query, (fin, alId));
+                db.commit()
+            except pg8000.Error as e:
+                print('Database Error: ', e.args[2])
+                db.rollback()
 def delete():
     search()
     alId = input("Please enter an album ID to delete: ")
@@ -219,5 +237,7 @@ def delete():
     except pg8000.Error as e:
         print('Databse Error: ', e.args[2])
         db.rollback()
+
+
 if __name__ == '__main__':                          # run main on start
     main()

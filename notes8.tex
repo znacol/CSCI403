@@ -35,4 +35,53 @@
 			\item
 
 		\end{enumerate}
+	\section*{Transactions}
+		\begin{itemize}
+			\item
+				Problem: multiple users accessing/modifying db at the same time
+			\item
+				Basic model:
+				\begin{itemize}
+					\item
+						Read an object
+					\item
+						Write an object (e.g. blocks, rows, tables)
+				\end{itemize}
+		\end{itemize}
+		\subsection*{Concurrency Problems}
+		\begin{enumerate}
+			\item
+				Lost updates
+			\item
+				Dirty read
+		\end{enumerate}
+		\subsection*{Improve Model:}
+			\begin{itemize}
+				\item
+					Begin transaction
+				\item
+					Read/write
+				\item
+					Commit
+				\item
+					Rollback
+				\item
+					Goal: transaction treated as atomic unit of work ("all or nothing")
+				\item
+					Successful commit $\rightarrow$ all changes permanently written to database
+				\item
+					Rollback $\rightarrow$ all changes undone
+				\item
+					ACID Requirements
+					\begin{itemize}
+						\item
+							Atomicity
+						\item
+							Consistency
+						\item
+							Isolation
+						\item
+							Durability
+					\end{itemize}
+			\end{itemize}
 \end{document}
