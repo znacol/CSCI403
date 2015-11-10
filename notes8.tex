@@ -84,4 +84,48 @@
 							Durability
 					\end{itemize}
 			\end{itemize}
+	\section*{Serializability}
+		\begin{itemize}
+			\item
+				When we schedule concurrent transactions, the end result is same as if one followed another (serially)
+			\item
+				Managing transaction concurrency: locking, timestamp ordering, versioning
+		\end{itemize}
+		\section*{Two Phase Locking (2PL)}
+		\begin{itemize}
+			\item
+				Lock: a variable associated with an item descriving the state ofthe item with respect to the operations that can be performed on item
+			\item
+				Simple (binary locks): locked and unlocked
+				\begin{itemize}
+					\item
+						2 states: locked and unlocked
+					\item
+						Locked item is accessible only by the locker
+					\item
+						All others have to wait
+					\item
+						Too restrictive
+				\end{itemize}
+		\end{itemize}
+		\section*{Read/Write or Shared/Exclusive Locks}
+		\begin{itemize}
+			\item
+				3 states: read-locked (share-locked); write-locked (exclusive-locked); unlocked
+			\item
+				A read (shared lock)
+				\begin{itemize}
+					\item
+						A locker may erform only reads
+					\item
+						No other transaction can acquire a write-lock (must wait)
+				\end{itemize}
+			\item
+				Write (exclusive) lock: only locker can read or write the item
+		\end{itemize}
+		\section*{Require for Serializability}
+		\begin{itemize}
+			\item
+				All locking in a transaciton must occur before any unlocking
+		\end{itemize}
 \end{document}
