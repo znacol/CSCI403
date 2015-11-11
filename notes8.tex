@@ -85,13 +85,15 @@
 					\end{itemize}
 			\end{itemize}
 	\section*{Serializability}
+		
 		\begin{itemize}
 			\item
 				When we schedule concurrent transactions, the end result is same as if one followed another (serially)
 			\item
 				Managing transaction concurrency: locking, timestamp ordering, versioning
 		\end{itemize}
-		\section*{Two Phase Locking (2PL)}
+		\section*{Locking}
+		\subsubsection*{Two Phase Locking (2PL)}
 		\begin{itemize}
 			\item
 				Lock: a variable associated with an item descriving the state ofthe item with respect to the operations that can be performed on item
@@ -108,7 +110,7 @@
 						Too restrictive
 				\end{itemize}
 		\end{itemize}
-		\section*{Read/Write or Shared/Exclusive Locks}
+		\subsubsection*{Read/Write or Shared/Exclusive Locks}
 		\begin{itemize}
 			\item
 				3 states: read-locked (share-locked); write-locked (exclusive-locked); unlocked
@@ -116,16 +118,69 @@
 				A read (shared lock)
 				\begin{itemize}
 					\item
-						A locker may erform only reads
+						A locker may perform only reads
 					\item
 						No other transaction can acquire a write-lock (must wait)
 				\end{itemize}
 			\item
 				Write (exclusive) lock: only locker can read or write the item
 		\end{itemize}
-		\section*{Require for Serializability}
+		\subsubsection*{Require for Serializability}
 		\begin{itemize}
 			\item
-				All locking in a transaciton must occur before any unlocking
+				Sufficient: require all locking operations in a transaction precedes any unlocking operations
+			\item
+
+		\end{itemize}
+		\subsubsection*{Flavors of Locking}
+		\begin{itemize}
+			\item
+				Conservative: all locking done first, avoids deadlocks
+			\item
+				Strict: only releases write locks after entire transaction is committed or rolled back, does not avoid deadlocks
+		\end{itemize}
+		\subsubsection*{Disadvantages of Locking}
+		\begin{itemize}
+			\item
+				Overhead
+			\item
+				Deadlocks
+			\item
+				Starvation
+		\end{itemize}
+		\subsubsection*{Deadlocks}
+		\begin{itemize}
+			\item
+				$T_1$ locks $X_1$, requests Y
+			\item
+				$T_2$ locks $Y_1$, requests X
+
+		\subsubsection*{Prevention Protocols for Deadlocking}
+			\item
+				Spurious aborts
+			\item
+				Deadlock detection
+				\begin{itemize}
+					\item
+						Build dependency graph
+					\item
+						Look for cycles
+					\item
+						Select a "victim"
+				\end{itemize}
+			\item
+				Timeouts
+		\end{itemize}
+		\subsection*{Timestamping}
+		\begin{itemize}
+			\item
+				Timestamp ordering
+		\end{itemize}
+		\subsection*{Multiversion}
+		\begin{itemize}
+			\item
+				Each transaction seeas a "snapshot of database
+			\item
+				In case of conflict, transaction may have to be rolled back or restarted
 		\end{itemize}
 \end{document}

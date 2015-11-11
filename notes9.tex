@@ -1,0 +1,68 @@
+\documentclass[12pt]{article}
+\pagestyle{plain}
+\usepackage[margin=25mm]{geometry}
+\usepackage{mathtools}
+\begin{document}
+	\section*{NoSQL}
+		\begin{itemize}
+			\item
+				"Not only SQL"
+			\item
+				Designed for modern big data environment
+				\begin{itemize}
+					\item
+						Volume- terabytes/day
+					\item
+						Velocity- events/sec
+					\item
+						Variety- not necessarily simple types
+				\end{itemize}
+			\item
+				How does NoSQL address these challenges?
+				\begin{itemize}
+					\item
+						Scalability- distribute across nodes
+					\item
+						Availability
+						\begin{itemize}
+							\item
+								Multiple replicated nodes with failover
+							\item
+								Tradeoff: expensive to ensure consistency between replicas
+							\item
+								Evenutal consistency
+						\end{itemize}
+					\item
+						Sharding- distribute across nodes
+					\item
+						Key lookup
+					\item
+						No schemas- using semi-structured, self-describing data (JSON and XML)
+					\item
+						Less powerful query langauges- simple Create-Read-Update-Delete (CRUD) operatons
+						\begin{itemize}
+							\item
+								No joins
+							\item
+								Single object access
+						\end{itemize}
+				\end{itemize}
+			\item
+				Major Categories of No SQL
+				\begin{itemize}
+					\item
+						Document based
+					\item
+						Key value stores
+					\item
+						Columnar: store columns in files, not tables
+					\item
+						Graph-base
+					\item
+						Combinations of te above
+				\end{itemize}
+		\end{itemize}
+		
+
+
+\end{document}
