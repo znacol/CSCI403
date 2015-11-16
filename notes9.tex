@@ -59,10 +59,27 @@
 					\item
 						Graph-base
 					\item
-						Combinations of te above
+						Combinations of the above
 				\end{itemize}
 		\end{itemize}
-		
-
-
+		\subsection*{Eventual Consistency}
+		\begin{itemize}
+			\item
+				NoSQL opts for eventual consistency, meaning propagation of updates to all nodes
+			\item
+				Impacts 'I' in ACID (isolation)
+			\item
+				Performance advantage
+		\end{itemize}
+		\subsection*{CAP: Consistency, Availability, Partition Tolerance}
+		\begin{itemize}
+			\item
+				Consistency: across replicas
+			\item
+				Availability: every request to database is answered
+			\item
+				Partition tolerance: ability to keep functioning when netowrk is partitioned due to fault
+			\item
+				CAP theorm: not possible to guarantee all three CAP properties at the same time in a distributed system with data replication
+		\end{itemize}
 \end{document}

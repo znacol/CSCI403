@@ -1,0 +1,49 @@
+\documentclass[12pt]{article}
+\pagestyle{plain}
+\usepackage[margin=25mm]{geometry}
+\usepackage{mathtools}
+\begin{document}
+	\section*{Graph Databases}
+		\begin{itemize}
+			\item
+				Relationships become first class objects
+			\item
+				c.f. relational- relationships are implicit in foreign keys, cross-reference tables, joins
+			\item
+				Difficult to traverse arbitrary graph structures
+			\subsection*{Graph Model: Neo4j}
+				\subsubsection*{Nodes}
+					\begin{itemize}
+						\item
+							Labels (l or move)
+						\item
+							Properties (key:value)
+					\end{itemize}
+				\subsubsection*{Relationships (directed edge between 2 nodes)}
+					\begin{itemize}
+						\item
+							Type (1 exactly)
+						\item
+							Properties (key:value)
+					\end{itemize}
+				\subsubsection*{Applications}
+					\begin{itemize}
+						\item
+							Road networks/transport/geo-spatial
+						\item
+							Recommender systems (e.g. Netflix)
+						\item
+							Organizational structures
+						\item
+							Data networks/data centers
+					\end{itemize}
+					\subsubsection*{Querying (Neo4j's Cypher}
+					\begin{itemize}
+						\item
+							Uses descriptive pattern matching
+						\item
+							Patterns: 'ASCII art' depictions of graphs structures
+					\end{itemize}
+
+		\end{itemize}
+\end{document}
