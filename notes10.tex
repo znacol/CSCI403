@@ -44,6 +44,101 @@
 						\item
 							Patterns: 'ASCII art' depictions of graphs structures
 					\end{itemize}
+		\end{itemize}
+	\section*{Big Data}
+		\begin{itemize}
+			\item
+				Volume
+			\item
+				Velocity
+			\item
+				Variety- data trustworthiness
+				\begin{itemize}
+					\item
+						No validation
+					\item
+						Statistical methods necessary
+				\end{itemize}
+			\item
+				Geared toward analytics and 
 
+		\end{itemize}
+	\section*{Map Reduce and Hadoop}
+		\begin{itemize}
+			\item
+				2003: Google File System
+			\item
+				2004: Map Reduce
+			\item
+				2005: Hadoop
+				\begin{itemize}
+					\item
+						Filesystem
+					\item
+						Map reduce platform $\rightarrow$ Yahoo! $\rightarrow$ 2011 open source (Apache)
+				\end{itemize}
+		\subsection*{Map Reduce Concepts}
+			\item
+				Paradigm:
+				\begin{itemize}
+					\item
+						Specify some operations to perform on collections of data items distributed over multiple nodes (map)
+					\item
+						Collate answers together for final answer (reduce)
+				\end{itemize}
+			\item
+				Hadoop:
+				\begin{itemize}
+					\item
+						Provides a platform for automating Map Reduce jobs
+					\item
+						Data distributionn
+					\item
+						Parallelization
+					\item
+						Fault tolerance/recovery
+					\item
+						Communication
+					\item
+						Load balancing
+				\end{itemize}
+			\item
+				Map: takes in a key:value pair $\rightarrow$ outputs multiple intermediate key:value pairs
+			\item
+				Reduce: take a key and a collection of all values associated wit key $\rightarrow$ output key:value pair
+			\item
+				E.g.: word count
+		\subsection*{HDFS: Hadoop Distributed Filesystem}
+				\item
+					Posix-like filesystem
+				\item
+					Distributed with replication, fault tolerance
+				\item
+					Optimized for
+					\begin{itemize}
+						\item
+							High throughput
+						\item
+							Tradeoff latency
+					\end{itemize}
+				\item
+					Data locality
+				\item
+					"Hadoop ecosystem"
+					\begin{itemize}
+						\item
+							Higher level intefaces built on HDFS/Map Reduce
+						\item
+							SQL database - Hive
+						\item
+							Machine Learning - Apache Mahout
+						\item
+							Business Intelligence - Apache Drill
+					\end{itemize}
+			\subsection*{Apache Spark}
+				\item
+					Same goals as map reduce
+				\item
+					More flexible/powerful framework than Hadoop
 		\end{itemize}
 \end{document}
